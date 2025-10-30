@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://dx6hqqqnp8odt"]
+
+[ext_resource type="Script" uid="uid://cp0svltuyeb8" path="res://scripts/player/PlayerLook.gd" id="1_fcdtt"]
+[ext_resource type="Script" uid="uid://ogovimcla1rv" path="res://scripts/player/PlayerInteract.gd" id="2_4o2ry"]
+[ext_resource type="Script" uid="uid://yyhgie1xkm8w" path="res://scripts/interactables/ScaleStation.gd" id="3_08kb3"]
+[ext_resource type="Script" uid="uid://b3hq3hgawdk8h" path="res://scripts/core/Game.gd" id="4_g10va"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fcdtt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fcdtt"]
+material = SubResource("StandardMaterial3D_fcdtt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4o2ry"]
+albedo_color = Color(0.310262, 0.0145269, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_08kb3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g10va"]
+size = Vector3(1, 1, 1.00342)
+
+[node name="Main" type="Node3D"]
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, 2)
+script = ExtResource("1_fcdtt")
+
+[node name="RayCast3D" type="RayCast3D" parent="PlayerCamera"]
+script = ExtResource("2_4o2ry")
+
+[node name="Post" type="Node3D" parent="."]
+
+[node name="Workstation_Center" type="Node3D" parent="Post"]
+script = ExtResource("3_08kb3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Post/Workstation_Center"]
+transform = Transform3D(2.84622, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, -3)
+mesh = SubResource("BoxMesh_fcdtt")
+surface_material_override/0 = SubResource("StandardMaterial3D_4o2ry")
+
+[node name="Workstation_Left" type="Node3D" parent="Post"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Post/Workstation_Left"]
+transform = Transform3D(2.8, 0, 0, 0, 0.5, 0, 0, 0, 1, -4, 0, -3)
+mesh = SubResource("BoxMesh_fcdtt")
+surface_material_override/0 = SubResource("StandardMaterial3D_4o2ry")
+
+[node name="Workstation_Right" type="Node3D" parent="Post"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Post/Workstation_Right"]
+transform = Transform3D(2.8, 0, 0, 0, 0.5, 0, 0, 0, 1, 4.02043, 2.38419e-07, -3.00846)
+mesh = SubResource("BoxMesh_fcdtt")
+surface_material_override/0 = SubResource("StandardMaterial3D_4o2ry")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_right = 267.0
+offset_bottom = 238.0
+text = "GuideLabel
+"
+
+[node name="Game" type="Node" parent="."]
+script = ExtResource("4_g10va")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(19.0035, 0, 0, 0, 0.130074, 0, 0, 0, 19.9214, 0, 0, 0)
+mesh = SubResource("BoxMesh_08kb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00627062, 0.241798, -0.00316384)
+shape = SubResource("BoxShape3D_g10va")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 7.05779, 11.9858, 5.64623)
